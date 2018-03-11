@@ -1,0 +1,49 @@
+### MAIN SECTION
+[main]
+# broker url (don't change this)
+broker = "tcp://triggerfs.io:5555"
+
+# application url (including tenant name as subdomain)
+# please change demo to your tenant name
+url = "http://demo.triggerfs.io:8080"
+
+# identity (email address) for login
+identity = "demo@example.com"
+
+# password for login
+password = "secret"
+### MAIN SECTION END
+
+
+### FS SECTION
+[triggerfs]
+# API JWT or leave empty for login prompt on start
+#jwt = "eyJhbGciOiJI......"
+
+# mountpoint path
+mountpoint = "./mountpoint"A
+
+# logfile to log output to
+logfile = "./triggerfs.log"
+### FS SECTION END
+
+
+### CLI SECTION
+[triggerfs-cli]
+# the cli doesnt have any options yet.
+### CLI SECTION END
+
+
+### WORKERS SECTION
+[workers]
+# path to plugins folder
+pluginspath = "./plugins"
+
+# subsections of [workers] section identified by identities prefixed with "workers."
+[workers.worker01]
+token = "c3644eda-..."
+[workers.worker02]
+token = "c366e0e6-..."
+[workers.worker03]
+token = "c368b308-..."
+### WORKERS SECTION END
