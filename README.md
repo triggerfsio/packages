@@ -11,6 +11,7 @@ triggerFS is a new SaaS application powered by a highly motivated team to delive
 Please note that we are in the launching phase. We a trying hard to launch asap and make things work for you. The landing page is still in development.
 
 * Our official website is https://triggerfs.io
+* Our official core plugins repository is https://github.com/triggerfsio/plugins
 * Our official docker repository is https://hub.docker.com/u/triggerfsio/
 * Our official marketplace is https://marketplace.triggerfs.io
 * Our official documentation is https://docs.triggerfs.io
