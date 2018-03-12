@@ -21,7 +21,7 @@ password = "secret"
 #jwt = "eyJhbGciOiJI......"
 
 # mountpoint path
-mountpoint = "./mountpoint"A
+mountpoint = "./mountpoint"
 
 # logfile to log output to
 logfile = "./triggerfs.log"
