@@ -14,7 +14,7 @@ func main() {
 	stdio = make(chan []string)
 
 	// set prefix of module logger.
-	// the messages you send to the client via stdio in realtime, will be prefixed with this string
+	// the logs in the terminal where the worker is running will be prefixed with this string.
 	log.SetPrefix("[awesomeplugin log] ")
 
 	// mandatory:
