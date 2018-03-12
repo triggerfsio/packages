@@ -40,10 +40,11 @@ logfile = "./triggerfs.log"
 pluginspath = "./plugins"
 
 # subsections of [workers] section identified by identities prefixed with "workers."
-[workers.worker01]
-token = "c3644eda-..."
-[workers.worker02]
-token = "c366e0e6-..."
-[workers.worker03]
-token = "c368b308-..."
+# comment out each section and REPLACE WITH YOUR WORKERS HERE. THESE WON'T WORK (only examples)
+# [workers.worker01]
+# token = "c3644eda-..."
+# [workers.worker02]
+# token = "c366e0e6-..."
+# [workers.worker03]
+# token = "c368b308-..."
 ### WORKERS SECTION END
