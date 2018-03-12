@@ -81,7 +81,7 @@ This repository is made of 4 branches:
 * worker (triggerfs-worker)
 * fs (triggerfs)
 
-Each of these branches holds the corresponding binary module. Every module makes use of the configuration toml file. In the master branch you will find a skeleton of such a configuration file.
+Each one of these branches holds the corresponding binary module. Every module makes use of the configuration toml file. In the master branch you will find a skeleton of such a configuration file.
 
 If you want to know more about triggerFS - or want to sign up - please visit https://triggerfs.io
 
