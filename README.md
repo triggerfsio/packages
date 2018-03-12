@@ -22,9 +22,9 @@ Our SaaS application has three pricing plans:
 * Advanced (charged)
 * Enterprise (not available yet)
 
-The pricing plan is not finished, yet. So we can't exactly tell you the cost, but we will update it once we know how we want to charge our customers.
+The pricing plan is not finished, yet. So we can't exactly tell you the costs, but we will update it once we know how we want to charge our customers.
 
-Additionally, we want to provide you with as much information about our SaaS as possible. We will make use of animated gifs, pictures, videos, a series of screencasts and more to help you to understand what triggerFS is all about and how it can help you solve problems.
+Additionally, we want to provide you with as much information about our SaaS as possible. We will make use of animated gifs, pictures, videos, a series of screencasts and more to help you understand what triggerFS is all about and how it can help you solve problems.
 
 Although triggerFS is a closed source SaaS application, that doesn't mean you can not contribute to it.
 Basically the only module not listed here is our message broker which runs in the cloud. Every other modules is distributed as a binary. However, our marketplace is open source and will be also launched soon. The marketplace will provide you with tons of usable plugins you can use with triggerFS.
@@ -64,7 +64,7 @@ SUM:                           100           1336           1291           8924
   * 1 frontend developer
   * 1 linux/systemadministrator
   * 1 testing guy
-* we've built this application in 7 months and 23 days
+* we've built this application in 6 months and 23 days
 * this application is being actively developed and maintained
 * we hope to help others with this application and also hope to make profit with it
 
@@ -75,7 +75,7 @@ Happy triggering! :)
 &nbsp;
 
 # Preface
-This repository is made of three branches:
+This repository is made of 4 branches:
 * cli (triggerfs-cli)
 * client (triggerfs-client)
 * worker (triggerfs-worker)
