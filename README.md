@@ -1,7 +1,7 @@
 # Official TriggerFS Repository (https://triggerfs.io)
 
 ## Welcome to the official triggerFS repository
-### triggerFS is a distributed, realtime message passing and trigger system available as a SaaS Application.
+#### triggerFS is a distributed, realtime message passing and trigger system available as a SaaS Application.
 
 &nbsp;
 
