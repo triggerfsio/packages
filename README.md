@@ -11,7 +11,7 @@ This repository is made of four branches:
 Each one of these branches holds the corresponding binary module. Every module makes use of the configuration toml file. In the master branch you will find a skeleton of such a configuration file called `triggerfs.toml`.
 
 
-* Our official website and documenatation is https://triggerfs.io
+* Our official website and documentation is https://triggerfs.io
 * Our official core plugins repository is https://github.com/triggerfsio/plugins
 * Our official docker repository is https://hub.docker.com/u/triggerfsio/
 ___
