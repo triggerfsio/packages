@@ -1,140 +1,113 @@
 # Official TriggerFS Repository (https://triggerfs.io)
 
 ## Welcome to the official triggerFS repository
-#### triggerFS is a distributed, realtime message passing and trigger system available as a SaaS Application.
 
-&nbsp;
-
-# Introduction
-triggerFS is a new SaaS application powered by a highly motivated team to deliver a great experience with building distributed systems and messaging. Please have a look into the documentation to get an overview what triggerFS is and how it can help you. 
-
-Please note that we are in the launching phase. We a trying hard to launch asap and make things work for you. The landing page is still in development.
-
-* Our official website is https://triggerfs.io
-* Our official core plugins repository is https://github.com/triggerfsio/plugins
-* Our official docker repository is https://hub.docker.com/u/triggerfsio/
-* Our official marketplace is https://marketplace.triggerfs.io
-* Our official documentation is https://docs.triggerfs.io
-* Our official API swagger demo is https://swagger.triggerfs.io
-
-Our SaaS application has three pricing plans:
-* Free (and yes, will always be free :) )
-* Basic (charged)
-* Advanced (charged)
-* Enterprise (not available yet)
-
-The pricing plan is not finished, yet. So we can't exactly tell you the costs, but we will update it once we know how we want to charge our customers.
-
-Additionally, we want to provide you with as much information about our SaaS as possible. We will make use of animated gifs, pictures, videos, a series of screencasts and more to help you understand what triggerFS is all about and how it can help you solve problems.
-
-Although triggerFS is a closed source SaaS application, that doesn't mean you can not contribute to it.
-Basically the only module not listed here is our message broker which runs in the cloud. Every other modules is distributed as a binary. However, our marketplace is open source and will be also launched soon. The marketplace will provide you with tons of usable plugins you can use with triggerFS.
-
-Some facts:
-```
-     152 text files.
-     139 unique files.                                          
-     420 files ignored.
-
-http://cloc.sourceforge.net v 1.60  T=0.34 s (296.5 files/s, 34247.9 lines/s)
--------------------------------------------------------------------------------
-Language                     files          blank        comment           code
--------------------------------------------------------------------------------
-Go                              43           1075            829           7176
-SQL                             34            182            356           1201
-Bourne Shell                    10             35             49            259
-Lua                              6             20             37            110
-YAML                             1              2             14             75
-Javascript                       3             12              3             69
-make                             2              8              2             26
-Python                           1              2              1              8
--------------------------------------------------------------------------------
-SUM:                           100           1336           1291           8924
--------------------------------------------------------------------------------
-```
-
-* the whole application has around 9k loc
-* the core application is written in Go
-* all modules are written in Go
-* the backend uses postgrest as a database
-* we use helper scripts written in bash and python for automated deployments and testings
-* we do our testing in bash, javascript and sql for various checks and db testings
-* we use the lua module in nginx for our HTTP JSON API
-* the team is made of 4 members:
-  * 1 core/backend developer
-  * 1 frontend developer
-  * 1 linux/systemadministrator
-  * 1 testing guy
-* we've built this application in 6 months and 23 days
-* this application is being actively developed and maintained
-* we hope to help others with this application and also hope to make profit with it
-
-For more information please visit https://triggerfs.io.
-
-Happy triggering! :)
-
-&nbsp;
-
-# Preface
-This repository is made of 4 branches:
+This repository is made of four branches:
 * cli (triggerfs-cli)
 * client (triggerfs-client)
 * worker (triggerfs-worker)
 * fs (triggerfs)
 
-Each one of these branches holds the corresponding binary module. Every module makes use of the configuration toml file. In the master branch you will find a skeleton of such a configuration file.
+Each one of these branches holds the corresponding binary module. Every module makes use of the configuration toml file. In the master branch you will find a skeleton of such a configuration file called `triggerfs.toml`.
 
-If you want to know more about triggerFS - or want to sign up - please visit https://triggerfs.io
+
+* Our official website and documenatation is https://triggerfs.io
+* Our official core plugins repository is https://github.com/triggerfsio/plugins
+* Our official docker repository is https://hub.docker.com/u/triggerfsio/
+___
 
 &nbsp;
 
-## About TriggerFS
-TriggerFS is a new multi-tenant SaaS application which aims to be a reliable service-oriented message passing system for building distributed, high-available clusters of services which make use of plugins to be able to do any job. TriggerFS is made of three modules which - put together - make up a powerful tool for distributing workload of any kind, build automation solutions or build whole networks of services talking to each other.
 
-TriggerFS can do a lot. Let's dive a bit deeper into it...
+## Introduction
+triggerFS is a distributed, realtime message passing and trigger system. triggerFS enables you to build distributed systems and do realtime messaging in a service-oriented fashion. It is made up of four modules:
+* worker
+* client
+* cli
+* fs
+
+Each one of these modules play a key role in your triggerFS environment:
+
+
+## Modules
+### **worker**
+A worker is or has a service and receives messages (requests) from one or more clients in a safe and concurrent way and executes them by using a *plugin*. Deploy a worker to a bunch of servers and connect them together, build a network of services for high-speed messaging, to distribute workload or create clusters or groups of workers.
+
+A plugin is a tiny binary (written and compiled in go) which does one thing and does it well. A plugin could be anything:
+* compute something
+* filter, grep, grok, sort or manipulate data
+* write to a file
+* log to a file
+* forward a message
+* read logs
+* collect metrics (eg. send metrics to graphite)
+* just echo back the received message
+* monitor the server the worker is running on
+* execute something on a remote machine via ssh
+* run a chef/puppet/fabric recipe or ansible playbook
+* run a bash script
+* send an SMS via twillio
+* send a text message to telegram
+* flip a switch (0/1 flipflops)
+* start/stop/restart a service
+* kill a process
+* chain requests by writing to another trigger file (this is fun)
+* ...
+
+you name it. As you can see the job of a plugin is to make our life easier and serve us with mostly things that can be automated or are needed on-demand. You can write your own plugins or search for existing plugins on the marketplace (more about that below).
+
+&nbsp;
+
+### **client**
+A client sends messages (requests) to a service and gets back a response. The client can specify which service it wants to talk to and what plugin shall be used. The client module is simple but powerful.
+
+&nbsp;
+
+### **cli**
+The cli module is an interactive cli-based management console for managing everything on your triggerFS platform. With the cli module you can:
+* create new users
+* create new workers
+* create new services
+* make services public (public services feature)
+* select the message dispatching algorithm (loadbalancing and more)
+* create *triggers*
+* make requests to your services in realtime
+* and much more
+
+The triggerFS cli module is **the** central place for managing, orchestrating and configuring your triggerFS environment.
+
+Suppose we wanted to do the following:   
+If we know that there will be a service called *demo* with a *command* plugin and three workers behind that service (announcing that service), we could create a trigger named *command*, attach it to the *demo* service, add the *demo* service to all of our three workers and set a timeout of - let's say - 10s. Now we have created a trigger which is represented as a file in our fs module.
+
+&nbsp;
+
+### **fs**
+The fs module is a module for mapping the above mentioned *triggers* to files with the help of FUSE. It was built to go a step further than just sending messages back and forth. It enables machine-to-machine communication.
+
+Create a directory and define a trigger in that directory in your cli. Now, if you mount the fs module to a place on your filesystem, you end up with a file in that directory within that mountpoint. Every write to that file (with the content being the data written to that file) will send a request to the workers behind the above defined service with all the predefined set of rules we configured ealier. The fs module aims to make triggerFS "apps-friendly" in such a way that other applications can use files as their way to send a message to your services.
+
+For example:  
+A trigger file could be defined in such a way that the result would be a logging of the request being sent to a service. Now we could tell Nginx to log into our trigger file instead of /var/log/nginx/*. Now everytime Nginx wants to log someting, it makes a syscall (write) to our file which would result in a message being sent. Our service would then write it to eg. a central NFS server of the company which is located on the machine where the worker is running.
+
+What we just did is we triggered an action by writing to a file. Hence the name *trigger*.
+
+&nbsp;
 ___
 
-#### Description
-A set of workers sit behind a service and wait for incoming messages (eg. job requests). Services are bound to one or more so called trigger-files. A trigger-file defines a configuration of how a message will be passed (eg. which message [the payload] will be relayed to which service [a set of workers] and which plugin shall be used by that service and more. These trigger-files are exposed through FUSE as regular files which can be written to and read from.
+## Marketplace
+triggerFS gives you the platform for high-speed realtime messaging. But that is only a small fraction of what this is all about, really. What really powers triggerFS is the gigantic amount of plugins you can use to do any kind of task. These plugins or the combination of several of them is what makes triggerFS a pleasure to work with.
 
-Writing to a file (which is the representation of a trigger with all its configured options) ends up in firing a trigger and thus in starting a chain of events like sending a message to one or more services which could result in sending even more messages by firing up another trigger and so on. Hence the name *trigger*.
+Those plugins need a place where they can be listed to the public, so everyone can benefit and download and use them. That is our vision of building the triggerFS marketplace. Anyone who can write go (https://golang.org/) can also write plugins. Check out our core plugins so you can get a feeling of how a plugin works. Our plugin skeleton has 57 lines of code (loc). Add your own function to it and you have just created your first own plugin.
 
-### TL;DR
-TriggerFS - in a nutshell:
-* multi-tenant SaaS application
-* reliable, service-oriented message passing through the use of *trigger*-files mounted as FUSE on your filesystem (**triggerfs** module)
-* writing to a *trigger*-file fires a trigger (sends a message)
-* a *trigger* triggers something. usually a job which is executed by the worker by the help of a plugin (eg. run a command on the system)
-* **triggerfs-cli** module as a central management cli application for managing your infrastructure (set of workers, services, triggers, users, timeouts, logging, etc.)
-* **triggerfs-worker** module for spawning worker instances across servers and build cluster of services or do logical grouping of services
+Plugins are small pieces of code, doing one thing and doing it well.
+We want to build as many plugins as possible for any kind of job. You can host them on github and link your repository in the triggerFS marketplace, making it accessible within the triggerFS app. Our goal is to provide you with tons of plugins with the help of the community in the near future.
 
+This should give a simple overview of what triggerFS is. But there is so much more to it. Please refer to our official documentations at https://triggerfs.io if you want to know how much fun you can have with triggerFS.
 
-### TriggerFS Modules
-#### triggerfs
-The main module which exposes your configured triggers as regular files within your filesystem. triggerfs uses FUSE to let you mount your trigger-files into your filesystem so you can read from and write to them. This is the module which will be used most of the time since it is the only way to send a message and fire up a trigger. Since other applications on your system know how to write to a file (common syscall operations) triggerfs is also "apps friendly", meaning that everything which can handle files will be able to fire up a trigger by writing to the trigger-files in that mountpoint.
+## Target Group
+We think that devops and system administrators will love to use triggerFS due to the way it simplifies building tools such as automation systems and communication of services. We see DCs (data centers) in general also as a target group. A triggerfs-worker as a top-of-the-rack (tor) worker which is responsible for the systems in a rack to handle deployments, automation, triggering of jobs, etc. is one of the scenarios triggerFS can fit into. Of course everybody is welcome to try out triggerFS (there is a free-tier subscription. Go try it out!)
 
-#### triggerfs-worker
-This module is the worker part which connects to a central broker in the cloud and provides not only its own service (the worker itself) but also listens for other services a user has created. Deploy your triggerfs-worker on any server and it will be under your control. Spawn a bunch of workers on different servers and put them under the same service and magically every server is a member of a newly created cluster.
-These workers have access to different plugins to do their job. Plugins are tiny, language-agnostic, rpc-based programs which can be executed by a worker on demand. Our goal is to provide a plugin for every kind of task one can imagine. A plugin should be a simple program which does one job and does it well. It can be a self-written executable made for your specific needs or can be downloaded from the TriggerFS **marketplace** because someone else already wrote one to do the job. We want the marketplace to be a place where the community can share their plugins. There should be a plugin for any job out there. We (the team behind TriggerFS) are actively pushing the marketplace to be able to launch it soon so we can build a community and reach more people and motivate more developers to build their plugins and share them with others. We also write our own plugins which we share officially on our Github repository. The marketplace will be online soon and will hopefully complete our vision of a nice experience of this application.
-
-TriggerFS already comes with its first plugin out-of-the-box which is a basic *command* plugin. The *command* plugin will execute whatever command is being sent to a service. It is written in golang and can be executed to run arbitrary commands in a shell where the worker is running. When we say "basic plugin", we mean the codebase. This doesn't mean that you can't do more complex things like ssh'ing into another machine for ad-hoc commands (no tty supported) or run an ansible playbook ;).
-
-#### triggerfs-cli
-Finally there is the triggerfs-cli module which is the central place for configuring and managing your infrastructure. You can add/remove services, create users or define new triggers and more. This module is a cli application and its goal is to provide a nice management platform to the user.
-
-<!-- TriggerFS has several features. Here are some of the most important ones:
-* build high-availability clusters of workers by putting them behind a service
-* choose between two algorithms for distributing messages to services: roundrobin (load-balancing) and mirror (duplicating)
-* zero-downtime interrupt of services (joining workers, failing worker, disconnecting worker)
-* centralized cli management tool for managing and configuring the infrastructure with triggerfs-cli
-* future feature: one marketplace for every kind of plugin. command plugin, graphite plugin, logging plugin, etc.
-* easy to understand and scalable subscription based pricing model which fits your needs -->
-___
-
-### Target Group
-We think that devops and system administrators will love to use our SaaS product due to the way it simplifies building tools such as automation systems and communication of services. We see DCs (data centers) in general also as a target group. A triggerfs-worker as a top-of-the-rack (tor) worker which is responsible for the systems in a rack to handle deployments, automation, triggering of jobs, etc. is one of the scenarios TriggerFS can fit in. Of course everybody is welcome to try out TriggerFS (there is a free-tier subscription. Go try it out!)
-
-### Problem Solving
+## Problem Solving
 TriggerFS is here to help you with the right tool. We don't want to invent anything new, we want to take already existing parts and put them together to build a system which can deliver the experience many people are looking for when:
 * there is a new problem to be solved
 * building distributed systems can actually be tricky
@@ -149,64 +122,11 @@ TriggerFS is here to help you with the right tool. We don't want to invent anyth
 * fire&forget-style events could be needed
 * wanting a central place where everything can be run (triggered) from
 
-<!-- 
-### Benefits Of Using TriggerFS
+&nbsp;
+___
+If you want to know more about triggerFS please visit https://triggerfs.io.  
+**Sign up now with the free tier** - which is free and will always be free, has no trial and gives you access to all features for now ([0] *until we finished our paid plans*).
 
-### TriggerFS Modules
-#### A Message Passing System
-#### A Trigger System
-#### A Distributed Filesystem
+&nbsp;
 
-### TriggerFS Evolution
-#### Defining The Problem
-#### The Idea
-#### Finding a solution
-
-### Overview
-#### Infrastructure
-#### Modules
-#### Plugin System
-#### Marketplace
-#### SaaS vs. On-Premise Model
-
-### Security
-
-### Updates
-
-### Documentations
-#### Users Manual
-#### Developer's Guide (Plugins)
-
-### Install & Usage
-#### Installation
-#### Configuration
-#### Usage
-
-### Examples
-#### Basics
-#### Use Cases
-
-### Features
-
-### Roadmap
-#### Current Status
-#### Active Development
-#### What's Next?
-#### Releases
-
-### Subscription Model & Pricing Plan
-#### Subscription-Bases Pricing
-
-#### Subscription Tiers
-##### Free Tier
-##### Basic Tier
-##### Premium Tier
-
-#### On-Premise Solutions
-##### Enterprise Tier
-
-### About Us
-#### Team
-#### Vision
-#### Goals
--->
+[0] - *The pricing plan is not finished, yet. So we can't exactly tell the price, but we will update it once we know how we want to charge our customers. We want to start with the free tier with all features enabled so we can offer you the full featured experience of triggerFS.*

@@ -1,50 +1,48 @@
+###############################################################
+# Official triggerFS configuration toml skeleton file         #
+# In case you are missing the core plugins:                   #
+# you can find them at https://github.com/triggerfsio/plugins #
+###############################################################
+
 ### MAIN SECTION
 [main]
-# broker url (don't change this)
-broker = "tcp://triggerfs.io:5555"
-
-# application url (including tenant name as subdomain)
-# please change demo to your tenant name
-url = "http://demo.triggerfs.io:8080"
-
+# team name for login
+team = "myawesometeam"
 # identity (email address) for login
 identity = "demo@example.com"
-
 # password for login
-password = "secret"
+secret = "secret"
+# or provide an api JWT to skip above login credentials
+# jwt = ""
 ### MAIN SECTION END
 
 
 ### FS SECTION
 [triggerfs]
-# API JWT or leave empty for login prompt on start
-#jwt = "eyJhbGciOiJI......"
-
 # mountpoint path
-mountpoint = "./mountpoint"
-
-# logfile to log output to
-logfile = "./triggerfs.log"
+mountpoint = "/home/user/mountpoint"
+# logfile for logging of fs module
+logfile = "/home/user/triggerfs.log"
 ### FS SECTION END
 
 
-### CLI SECTION
-[triggerfs-cli]
-# the cli doesnt have any options yet.
-### CLI SECTION END
+### CLIENT SECTION
+[triggerfs-client]
+# logfile for logging of client module
+logfile = "/home/user/triggerfs_client.log"
+### CLIENT SECTION END
 
 
 ### WORKERS SECTION
 [workers]
-# path to plugins folder
-pluginspath = "./plugins"
+# path to plugins folder (must be absolute path).
+pluginspath = "/home/user/gocode/src/github.com/triggerfsio/plugins/plugins"
 
 # subsections of [workers] section identified by identities prefixed with "workers."
-# comment out each section and REPLACE WITH YOUR WORKERS HERE. THESE WON'T WORK (only examples)
-# [workers.worker01]
-# token = "c3644eda-..."
-# [workers.worker02]
-# token = "c366e0e6-..."
-# [workers.worker03]
-# token = "c368b308-..."
+#[workers.worker01]
+#token = "c3644eda-..."
+#[workers.worker02]
+#token = "c366e0e6-..."
+#[workers.worker03]
+#token = "c368b308-..."
 ### WORKERS SECTION END
