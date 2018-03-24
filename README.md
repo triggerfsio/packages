@@ -82,14 +82,17 @@ If we know that there will be a service called *demo* with a *command* plugin an
 &nbsp;
 
 ### **fs**
-The fs module is a module for mapping the above mentioned *triggers* to files with the help of FUSE. It was built to go a step further than just sending messages back and forth. It enables machine-to-machine communication.
+The fs module is a module for mapping the above mentioned *triggers* to files with the help of FUSE. It was built to go a step further than just sending messages back and forth. It enables machine-to-machine communication. Mounting files is cheap and doing socket communication by using files makes this module attractive for eg. embedded devices or small computers like the Raspberry Pi™.
 
 Create a directory and define a trigger in that directory in your cli. Now, if you mount the fs module to a place on your filesystem, you end up with a file in that directory within that mountpoint. Every write to that file (with the content being the data written to that file) will send a request to the workers behind the above defined service with all the predefined set of rules we configured ealier. The fs module aims to make triggerFS "apps-friendly" in such a way that other applications can use files as their way to send a message to your services.
 
 For example:  
 A trigger file could be defined in such a way that the result would be a logging of the request being sent to a service. Now we could tell Nginx to log into our trigger file instead of /var/log/nginx/*. Now everytime Nginx wants to log someting, it makes a syscall (write) to our file which would result in a message being sent. Our service would then write it to eg. a central NFS server of the company which is located on the machine where the worker is running.
 
-What we just did is we triggered an action by writing to a file. Hence the name *trigger*.
+Another example would be a raspberry pi which collects weather data and sends it to a central server (service) by writing into the trigger-files it mounted on its filesystem. Either scripted or syscalled.  
+A simple `echo 'somedata 31F;10°;3.2' > /mnt/triggerfs/weatherstation/rpi/station1` is enough to send your data.
+
+What we just did is, we triggered an action by writing to a file. Hence the name *trigger*.
 
 &nbsp;
 ___
