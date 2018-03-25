@@ -38,11 +38,11 @@ logfile = "/home/user/triggerfs_client.log"
 # path to plugins folder (must be absolute path).
 pluginspath = "/home/user/gocode/src/github.com/triggerfsio/plugins/plugins"
 
-# subsections of [workers] section identified by identities prefixed with "workers."
-#[workers.worker01]
+# subsections of [workers] section identified by identities prefixed with "workers" and team name eg. [workers.myawesometeam.myworker01]
+#[workers.myawesometeam.worker01]
 #token = "c3644eda-..."
-#[workers.worker02]
+#[workers.myawesometeam.worker02]
 #token = "c366e0e6-..."
-#[workers.worker03]
+#[workers.myawesometeam.worker03]
 #token = "c368b308-..."
 ### WORKERS SECTION END
