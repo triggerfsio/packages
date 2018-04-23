@@ -28,6 +28,9 @@ This repository includes following modules:
 * fs (triggerfs)
 
 All binaries are statically linked and do not need any dependencies except the *fs* module (it needs libfuse2/fuse).
+
+There is also a docker version for each module available.
+
 Every module makes use of the configuration toml file. You will find a skeleton of such a configuration file called `triggerfs.toml`.
 
 * Our official website and documentation is https://triggerfs.io
