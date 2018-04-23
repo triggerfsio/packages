@@ -2,14 +2,32 @@
 
 ## Welcome to the official triggerFS repository
 
-This repository is made of four branches:
+### Signup has been enabled now. Beta testing has begun!
+The beta testing has just started (as of April 23th 2018) and will last for a period of time.
+
+**Sign up now for free and all features enabled** - We have enabled the signup process via our installer. You get free access with all features enabled so you can get the full experience.
+The free version has no trial and will also be free after the testing phase.
+
+[0] *once we finished our paid plans the free plan stays free but will have a limited feature set.*
+
+#### Installer now available
+You will find install.sh in this repository.
+
+Installing triggerFS is now easy with the installer. curl one-liner:
+```
+curl https://install.triggerfs.io/ | bash
+```
+
+
+&nbsp;
+
+This repository includes following modules:
 * cli (triggerfs-cli)
 * client (triggerfs-client)
 * worker (triggerfs-worker)
 * fs (triggerfs)
 
-Each one of these branches holds the corresponding binary module. Every module makes use of the configuration toml file. In the master branch you will find a skeleton of such a configuration file called `triggerfs.toml`.
-
+Every module makes use of the configuration toml file. You will find a skeleton of such a configuration file called `triggerfs.toml`.
 
 * Our official website and documentation is https://triggerfs.io
 * Our official core plugins repository is https://github.com/triggerfsio/plugins
@@ -128,8 +146,6 @@ TriggerFS is here to help you with the right tool. We don't want to invent anyth
 &nbsp;
 ___
 If you want to know more about triggerFS please visit https://triggerfs.io.  
-**Sign up now with the free tier** - which is free and will always be free, has no trial and gives you access to all features for now ([0] *until we finished our paid plans*).
 
 &nbsp;
-
 [0] - *The pricing plan is not finished, yet. So we can't exactly tell the price, but we will update it once we know how we want to charge our customers. We want to start with the free tier with all features enabled so we can offer you the full featured experience of triggerFS.*
