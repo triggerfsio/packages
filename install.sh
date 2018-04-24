@@ -43,7 +43,7 @@ function activate_account {
     ACTIVATIONCODE=$(${ui} --title "Activate account" --inputbox "please insert your activation code" 0 0 3>&2 2>&1 1>&3)
     check_exitstatus
     if [ ! -z "${ACTIVATIONCODE}" ] ; then
-        RET=$(curl -sXPOST localhost:8080/rpc/activate_account -H "Content-Type: application/json" -d '{"email": "'"${email}"'", "activationcode": "'"${ACTIVATIONCODE}"'"}' | python -mjson.tool | sed 's/"//g')
+        RET=$(curl -sXPOST https://api.triggerfs.io/rpc/activate_account -H "Content-Type: application/json" -d '{"email": "'"${email}"'", "activationcode": "'"${ACTIVATIONCODE}"'"}' | python -mjson.tool | sed 's/"//g')
         ${ui} --title "Signup" --msgbox "${RET}" 0 0
         if [ "${RET}" == "Account has been activated" ] ; then
              ${ui} --title "Activate account" --msgbox "Congratulations! Your account has been activated.
@@ -92,7 +92,7 @@ function do_signup {
         NAME=""
     fi
     if [ "${PASSWORD}" == "${PASSWORD2}" ] ; then
-        RET=$(curl -sXPOST http://localhost:8080/rpc/signup -H "Content-Type: application/json" -d '{"identity": "'"${IDENTITY}"'","name":"'"${NAME}"'", "email": "'"${EMAIL}"'", "password": "'"${PASSWORD}"'"}' | python -mjson.tool | sed 's/"//g')
+        RET=$(curl -sXPOST http://https://api.triggerfs.io/rpc/signup -H "Content-Type: application/json" -d '{"identity": "'"${IDENTITY}"'","name":"'"${NAME}"'", "email": "'"${EMAIL}"'", "password": "'"${PASSWORD}"'"}' | python -mjson.tool | sed 's/"//g')
         if [ "${RET}" == "Signup successful" ] ; then
             ${ui} --title "Signup" --msgbox "Signup successful" 0 0
             ${ui} --title "Activation Code" --msgbox "An activation code is on its way to you.
@@ -112,7 +112,7 @@ function login {
     PASSWORD=$(${ui} --title "Enter password" --clear --insecure --passwordbox "please enter your password" 0 0  3>&2 2>&1 1>&3)
     check_exitstatus
 
-    RET=$(curl -sXPOST http://localhost:8080/rpc/login -H "Content-Type: application/json" -d '{"type": "user", "identity": "'"${IDENTITY}"'", "secret": "'"${PASSWORD}"'"}' | python -mjson.tool)
+    RET=$(curl -sXPOST http://https://api.triggerfs.io/rpc/login -H "Content-Type: application/json" -d '{"type": "user", "identity": "'"${IDENTITY}"'", "secret": "'"${PASSWORD}"'"}' | python -mjson.tool)
     TMPRET=$( echo ${RET} | python -mjson.tool | grep token | awk -F':' '{print $NF}' | sed 's/[ "]//g')
     if [ -z "${TMPRET}" ] ; then
         ${ui} --title "Login" --msgbox "${RET}" 0 0
@@ -143,7 +143,7 @@ Continue with creating your own team now.
     if [ -z "${TEAMNAME}" ] ; then
         create_team
     else
-        RET=$(curl -XPOST http://localhost:8080/rpc/create_team -H "Content-Type: application/json" -H "Authorization: Bearer ${JWT}" -d '{"name": "'"${TEAMNAME}"'"}')
+        RET=$(curl -XPOST http://https://api.triggerfs.io/rpc/create_team -H "Content-Type: application/json" -H "Authorization: Bearer ${JWT}" -d '{"name": "'"${TEAMNAME}"'"}')
         if [ -z "${RET}" ] ; then
             ${ui} --title "Create Team" --msgbox "Team has been created." 0 0
             ${ui} --title "Create Team" --ok-label "Exit" --msgbox "Congratulations. You are now ready to use triggerFS. 
