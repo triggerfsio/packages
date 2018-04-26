@@ -4,7 +4,10 @@ ui=whiptail
 ui=dialog
 set TERM=vt220
 
-DOWNLOAD_GITHUB_URL=https://api.github.com/repos/begriffs/postgrest/releases/latest
+DOWNLOAD_GITHUB_URL_FS=https://github.com/triggerfsio/packages/blob/master/binaries/triggerfs?raw=true
+DOWNLOAD_GITHUB_URL_CLI=https://github.com/triggerfsio/packages/blob/master/binaries/triggerfs-cli?raw=true
+DOWNLOAD_GITHUB_URL_CLIENT=https://github.com/triggerfsio/packages/blob/master/binaries/triggerfs-client?raw=true
+DOWNLOAD_GITHUB_URL_WORKER=https://github.com/triggerfsio/packages/blob/master/binaries/triggerfs-worker?raw=true
 
 for i in dialog wget curl
 do
@@ -92,9 +95,9 @@ function do_signup {
         NAME=""
     fi
     if [ "${PASSWORD}" == "${PASSWORD2}" ] ; then
-        RET=$(curl -sXPOST http://https://api.triggerfs.io/rpc/signup -H "Content-Type: application/json" -d '{"identity": "'"${IDENTITY}"'","name":"'"${NAME}"'", "email": "'"${EMAIL}"'", "password": "'"${PASSWORD}"'"}' | python -mjson.tool | sed 's/"//g')
+        RET=$(curl -sXPOST https://api.triggerfs.io/rpc/signup -H "Content-Type: application/json" -d '{"identity": "'"${IDENTITY}"'","name":"'"${NAME}"'", "email": "'"${EMAIL}"'", "password": "'"${PASSWORD}"'"}' | python -mjson.tool | sed 's/"//g')
+        ${ui} --title "Signup" --msgbox "${RET}" 0 0
         if [ "${RET}" == "Signup successful" ] ; then
-            ${ui} --title "Signup" --msgbox "Signup successful" 0 0
             ${ui} --title "Activation Code" --msgbox "An activation code is on its way to you.
 
 Please check your mailbox and copy your activation code to proceed with activating your account next." 0 0
@@ -112,7 +115,7 @@ function login {
     PASSWORD=$(${ui} --title "Enter password" --clear --insecure --passwordbox "please enter your password" 0 0  3>&2 2>&1 1>&3)
     check_exitstatus
 
-    RET=$(curl -sXPOST http://https://api.triggerfs.io/rpc/login -H "Content-Type: application/json" -d '{"type": "user", "identity": "'"${IDENTITY}"'", "secret": "'"${PASSWORD}"'"}' | python -mjson.tool)
+    RET=$(curl -sXPOST https://api.triggerfs.io/rpc/login -H "Content-Type: application/json" -d '{"type": "user", "identity": "'"${IDENTITY}"'", "secret": "'"${PASSWORD}"'"}' | python -mjson.tool)
     TMPRET=$( echo ${RET} | python -mjson.tool | grep token | awk -F':' '{print $NF}' | sed 's/[ "]//g')
     if [ -z "${TMPRET}" ] ; then
         ${ui} --title "Login" --msgbox "${RET}" 0 0
@@ -143,7 +146,7 @@ Continue with creating your own team now.
     if [ -z "${TEAMNAME}" ] ; then
         create_team
     else
-        RET=$(curl -XPOST http://https://api.triggerfs.io/rpc/create_team -H "Content-Type: application/json" -H "Authorization: Bearer ${JWT}" -d '{"name": "'"${TEAMNAME}"'"}')
+        RET=$(curl -XPOST https://api.triggerfs.io/rpc/create_team -H "Content-Type: application/json" -H "Authorization: Bearer ${JWT}" -d '{"name": "'"${TEAMNAME}"'"}')
         if [ -z "${RET}" ] ; then
             ${ui} --title "Create Team" --msgbox "Team has been created." 0 0
             ${ui} --title "Create Team" --ok-label "Exit" --msgbox "Congratulations. You are now ready to use triggerFS. 
@@ -168,9 +171,10 @@ Happy triggering!" 0 0
 function download_modules {
     ${ui} --title "Starting download" --ok-button "Continue" --msgbox "Starting download of modules now" 0 0
     dirpath=$1
-    for i in $(curl -s ${DOWNLOAD_GITHUB_URL} | grep browser_download_url | cut -d '"' -f 4)
+    for i in ${DOWNLOAD_GITHUB_URL_FS} ${DOWNLOAD_GITHUB_URL_CLI} ${DOWNLOAD_GITHUB_URL_CLIENT} ${DOWNLOAD_GITHUB_URL_WORKER}
     do
-        wget $i -P ${dirpath} 2>&1 |  stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' |  ${ui} --gauge "Downloading module $(echo $i | awk -F'/' '{ print $NF}')" 0 100
+        wget $i -O ${dirpath}/$(echo ${i%%?raw=true} | awk -F'/' '{print $NF}') 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | ${ui} --gauge "Downloading module $(echo ${i%%?raw=true} | awk -F'/' '{ print $NF}')" 0 100
+        chmod u+x ${dirpath}/$(echo ${i%%?raw=true} | awk -F'/' '{print $NF}')
     done
 }
 
