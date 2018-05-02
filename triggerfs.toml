@@ -8,10 +8,10 @@
 [main]
 # team name for login
 team = "myawesometeam"
-# identity (email address) for login
-identity = "demo@example.com"
+# identity for login
+identity = "myidentity"
 # password for login
-secret = "secret"
+secret = "password"
 # or provide an api JWT to skip above login credentials
 # jwt = ""
 ### MAIN SECTION END
